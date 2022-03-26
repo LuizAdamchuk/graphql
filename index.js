@@ -63,15 +63,21 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
+  Usuario: {
+    id(obj) {
+      console.log(obj);
+      return null;
+    },
+  },
   Query: {
-    usuarios() {
+    usuarios(obj, args) {
       return usuarios;
     },
     usuario(obj, args) {
       const { id } = args;
       return usuarios.find((usuario) => usuario.id === id);
     },
-    produtos() {
+    produtos(obj, args) {
       return produtos;
     },
     produto(obj, args) {
