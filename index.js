@@ -7,6 +7,7 @@ const usuarios = [
     nome: "Luiz",
     idade: 28,
     salario: 28.8,
+    perfil: 1,
   },
   {
     id: 2,
@@ -14,36 +15,34 @@ const usuarios = [
     nome: "Junior",
     idade: 27,
     salario: 29.8,
+    perfil: 2,
   },
 ];
 
-const produtos = [
+const perfis = [
   {
     id: 1,
     ativo: true,
-    nome: "Livro",
+    nome: "Perfil de admin",
     descricao: "Descricao do livro",
-    campanha: "Id da campanha",
-    valor: 100.0,
+    role: "admin",
   },
   {
     id: 2,
     ativo: true,
-    nome: "Caneca",
+    nome: "Perfil de usuario",
     descricao: "Descricao do caneca",
-    campanha: "Id da campanha",
-    valor: 60.0,
+    role: "user",
   },
 ];
 
 const typeDefs = gql`
-  type Produto {
-    ativo: Boolean
+  type Perfil {
     id: ID
+    ativo: Boolean
     nome: String
     descricao: String
-    campanha: String
-    valor: Float
+    role: String
   }
 
   type Usuario {
@@ -52,21 +51,22 @@ const typeDefs = gql`
     nome: String
     ativo: Boolean
     id: ID
+    perfil: Perfil
   }
 
   type Query {
     usuarios: [Usuario]
     usuario(id: Int): Usuario
-    produtos: [Produto]
-    produto(id: Int): Produto
+    perfis: [Perfil]
+    perfil(id: Int): Perfil
   }
 `;
 
 const resolvers = {
   Usuario: {
-    id(obj) {
+    perfil(obj) {
       console.log(obj);
-      return null;
+      return perfis.find((perfil) => perfil.id === obj.perfil);
     },
   },
   Query: {
@@ -77,12 +77,12 @@ const resolvers = {
       const { id } = args;
       return usuarios.find((usuario) => usuario.id === id);
     },
-    produtos(obj, args) {
-      return produtos;
+    perfis(obj, args) {
+      return perfis;
     },
-    produto(obj, args) {
+    perfil(obj, args) {
       const { id } = args;
-      return produtos.find((produto) => produto.id === id);
+      return perfis.find((perfil) => perfil.id === id);
     },
   },
 };
