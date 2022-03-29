@@ -1,0 +1,17 @@
+enum RolePerfil {
+  admin
+  user
+}
+
+type Perfil {
+  id: ID
+  ativo: Boolean
+  nome: String
+  descricao: String
+  role: RolePerfil
+}
+
+type Query {
+  perfis: [Perfil]
+  perfil(id: Int): Perfil
+}
