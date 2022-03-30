@@ -3,6 +3,7 @@ module.exports = {
     {
       id: 1,
       ativo: true,
+      email: "email@email.com",
       nome: "Luiz",
       idade: 28,
       salario: 28.8,
@@ -11,6 +12,7 @@ module.exports = {
     {
       id: 2,
       ativo: true,
+      email: "email1@email.com",
       nome: "Junior",
       idade: 27,
       salario: 29.8,
