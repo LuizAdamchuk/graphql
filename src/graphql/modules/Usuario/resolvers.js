@@ -41,9 +41,21 @@ module.exports = {
         ...args,
         id: geradorId(db.usuarios),
         perfil: 2,
+        ativo: true,
       };
       db.usuarios.push(novoUsuario);
 
+      return novoUsuario;
+    },
+    atualizarUsuario(obj, args) {
+      const { id } = args;
+      const usuario = db.usuarios.find((u) => u.id === id);
+      const indice = db.usuarios.findIndex((u) => u.id === id);
+      const novoUsuario = {
+        ...usuario,
+        ...args,
+      };
+      db.usuarios.splice(indice, 1, novoUsuario);
       return novoUsuario;
     },
   },

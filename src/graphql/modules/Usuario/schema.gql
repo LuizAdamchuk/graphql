@@ -1,8 +1,8 @@
 type Usuario {
   idade: Int
   salario: Float
-  email: String!
   nome: String
+  email: String
   ativo: Boolean
   id: ID
   perfil: Perfil
@@ -17,7 +17,14 @@ type Mutation {
   criarUsuario(
     idade: Int
     salario: Float
-    nome: String!
+    nome: String
     email: String!
+  ): Usuario!
+  atualizarUsuario(
+    idade: Int
+    salario: Float
+    nome: String
+    ativo: Boolean
+    id: Int!
   ): Usuario!
 }
