@@ -27,4 +27,5 @@ type Mutation {
     ativo: Boolean
     id: Int!
   ): Usuario!
+  deletarUsuario(id: Int!): Boolean
 }

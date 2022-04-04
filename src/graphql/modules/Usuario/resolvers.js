@@ -58,5 +58,11 @@ module.exports = {
       db.usuarios.splice(indice, 1, novoUsuario);
       return novoUsuario;
     },
+    deletarUsuario(obj, args) {
+      const { id } = args;
+      const indice = db.usuarios.findIndex((u) => u.id === id);
+      db.usuarios.splice(indice, 1);
+      return !!indice;
+    },
   },
 };
