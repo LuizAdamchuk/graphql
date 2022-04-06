@@ -2,26 +2,17 @@ const db = require("../../../db");
 
 module.exports = {
   Query: {
-    users: async () => await db("users"),
+    users: async (_, args, { UserService }) => UserService.listUsers(),
   },
   Mutation: {
-    createUser: async (_, { data }) =>
-      await (
-        await db("users").insert(data).returning("*")
-      )[0],
+    createUser: async (_, { data }, { UserService }) =>
+      await UserService.createUser(data),
 
-    updateUser: async (_, { id, data }) =>
-      await (
-        await db("users").where({ id }).update(data).returning("*")
-      )[0],
-    deleteUser: async (_, { filter }) => {
-      if (filter.id) {
-        return await db("users").where({ id: filter.id }).delete();
-      }
-      if (filter.email) {
-        return await db("users").where({ email: filter.email }).delete();
-      }
-      throw new Error("Valor não encontrado");
+    updateUser: async (_, { id, data }, { UserService }) =>
+      await UserService.updateUser(id, data),
+
+    deleteUser: async (_, { filter }, { UserService }) => {
+      await UserService.deleteUser(filter);
     },
   },
 };
