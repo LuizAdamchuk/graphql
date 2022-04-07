@@ -7,6 +7,10 @@ class UserService {
 
   listUsers = async () => await this.service("users");
 
+  listUser = async (login) => {
+    return await this.service("users").where({ login }).first();
+  };
+
   createUser = async (data) =>
     await (
       await this.service("users").insert(data).returning("*")

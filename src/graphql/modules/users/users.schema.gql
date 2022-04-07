@@ -1,23 +1,21 @@
 type User {
   id: Int
-  name: String
-  email: String
-  phone: String
+  login: String
+  avatar_url: String
+  tasks: [Task]
 }
-
 input UserFilter {
   id: Int
-  email: String
+  avatar_url: String
 }
-
 input UserInput {
-  name: String
-  email: String
-  phone: String
+  login: String
+  avatar_url: String
 }
 
 type Query {
   users: [User]
+  user(login: String): User
 }
 
 type Mutation {
