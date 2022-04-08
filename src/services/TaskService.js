@@ -10,14 +10,12 @@ class TaskService {
   };
 
   getTaskById = async (user_id, id) => {
-    const task = await this.service("users").where({ id }).firts();
-
+    const task = await this.service("tasks").where({ id }).first();
     if (!task) throw new Error("Tarefa não encontrada");
 
     if (task.user_id != user_id) {
       throw new Error("Você não tem permissão");
     }
-
     return task;
   };
 
@@ -38,6 +36,7 @@ class TaskService {
 
   deleteTask = async (user_id, id) => {
     await this.getTaskById(user_id, id);
+    console.log(user_id, id);
     return await this.service("tasks").where({ id }).delete();
   };
 }

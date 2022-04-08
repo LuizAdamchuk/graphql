@@ -7,7 +7,7 @@ module.exports = {
     },
   },
   Query: {
-    users: async (_, args, { dataSources }) =>
+    users: async (_, __, { dataSources }) =>
       dataSources.UserService.listUsers(),
 
     user: async (_, { login }, { dataSources }) => {
