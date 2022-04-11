@@ -1,7 +1,14 @@
 module.exports = {
   Query: {
     async tasks(_, __, { dataSources, user_id }) {
-      return await dataSources.TaskService.listTasksById(user_id);
+      console.log("RESOLVER TASK");
+      console.log(user_id);
+      return await dataSources.TaskService.listTasks(user_id);
+    },
+    async task(_, { id }, { dataSources, user_id }) {
+      console.log("RESOLVER TASK");
+      console.log(user_id, id);
+      return await dataSources.TaskService.getTaskById(user_id, id);
     },
   },
   Mutation: {

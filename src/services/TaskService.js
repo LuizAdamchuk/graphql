@@ -1,20 +1,23 @@
 const db = require("../db");
+const PermissionError = require("../errors/PermissionError");
+const TaskError = require("../errors/TaskError");
 
 class TaskService {
   constructor(service) {
     this.service = service;
   }
 
-  listTasksById = async (user_id) => {
+  listTasks = async (user_id) => {
     return await this.service("tasks").where({ user_id });
   };
 
   getTaskById = async (user_id, id) => {
+    console.log(user_id, id);
     const task = await this.service("tasks").where({ id }).first();
-    if (!task) throw new Error("Tarefa não encontrada");
+    if (!task) throw new TaskError("Tarefa não encontrada");
 
     if (task.user_id != user_id) {
-      throw new Error("Você não tem permissão");
+      throw new PermissionError("Você não tem permissão");
     }
     return task;
   };

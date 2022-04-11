@@ -3,7 +3,7 @@ const db = require("../../../db");
 module.exports = {
   User: {
     async tasks(user, _, { dataSources }) {
-      return await dataSources.TaskService.listTasksById(user.id);
+      return await dataSources.TaskService.listTasks(user.id);
     },
   },
   Query: {
