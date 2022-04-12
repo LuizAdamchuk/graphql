@@ -1,4 +1,5 @@
 const db = require("../../../db");
+const jwtgenerator = require("../../../helpers/jwtgenerator");
 
 module.exports = {
   User: {
@@ -13,15 +14,21 @@ module.exports = {
     user: async (_, { login }, { dataSources }) => {
       const userFound = await dataSources.UserService.listUser(login);
 
-      if (userFound) return userFound;
+      if (userFound) {
+        userFound.token = jwtgenerator.createToken(userFound.id);
+        return userFound;
+      }
 
       const { login: loginGit, avatar_url } =
         await dataSources.GitHubService.getUser(login);
 
-      return await dataSources.UserService.createUser({
+      const newUser = await dataSources.UserService.createUser({
         login: loginGit,
         avatar_url,
       });
+      newUser.token = jwtgenerator.createToken(newUser.id);
+
+      return newUser;
     },
   },
   Mutation: {
