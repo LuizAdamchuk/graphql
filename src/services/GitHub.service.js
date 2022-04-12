@@ -12,7 +12,7 @@ class GitHubService extends RESTDataSource {
       return await this.get(`/users/${login}`);
     } catch (error) {
       if (error.extensions.response.status === 404) {
-        throw new HTTPError("Usuário não encontrando:" + login);
+        throw new HTTPError("Usuário não encontrando: " + login);
       }
       throw new Error(error);
     }
